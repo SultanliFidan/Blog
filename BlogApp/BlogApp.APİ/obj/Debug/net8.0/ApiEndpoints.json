@@ -1,0 +1,65 @@
+[
+  {
+    "ContainingType": "BlogApp.AP\u0130.Controllers.CategoriesController",
+    "Method": "Get",
+    "RelativePath": "api/Categories",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BlogApp.AP\u0130.Controllers.CategoriesController",
+    "Method": "Post",
+    "RelativePath": "api/Categories",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "BlogApp.BL.DTOs.CategoryDtos.CategoryCreateDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BlogApp.AP\u0130.Controllers.CategoriesController",
+    "Method": "Byte",
+    "RelativePath": "api/Categories/Byte",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "value",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BlogApp.AP\u0130.Controllers.CategoriesController",
+    "Method": "Verify",
+    "RelativePath": "api/Categories/Verify",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "value",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "hash",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  }
+]
