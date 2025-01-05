@@ -21,6 +21,7 @@ namespace BlogApp.BL
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IJwtTokenHandler, JwtTokenHandler>();
+            services.AddScoped<IEmailService, EmailService>();
             return services;
         }
         public static IServiceCollection AddFluentValidation(this IServiceCollection services)
