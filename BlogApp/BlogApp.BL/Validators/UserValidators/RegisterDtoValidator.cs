@@ -10,10 +10,10 @@ using System.Threading.Tasks;
 
 namespace BlogApp.BL.Validators.UserValidators
 {
-    public class CreateUserDtoValidator : AbstractValidator<CreateUserDto>
+    public class RegisterDtoValidator : AbstractValidator<RegisterDto>
     {
         readonly IUserRepository _userRepository;
-        public CreateUserDtoValidator(IUserRepository userRepository)
+        public RegisterDtoValidator(IUserRepository userRepository)
         {
             _userRepository = userRepository;
             RuleFor(x => x.Email)
@@ -22,12 +22,12 @@ namespace BlogApp.BL.Validators.UserValidators
                 .EmailAddress();
             RuleFor(x => x.Username)
                 .NotEmpty()
-                .NotNull()
-                .Must(x =>
-                {
-                    return _userRepository.GetByUserNameAsync(x).Result == null;
-                })
-                .WithMessage("Username exist");
+                .NotNull();
+                //.Must(x =>
+                //{
+                //    return _userRepository.GetByUserNameAsync(x).Result == null;
+                //})
+                //.WithMessage("Username exist");
                 
 
         }

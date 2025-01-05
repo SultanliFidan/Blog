@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BlogApp.BL.DTOs.UserDTOs
 {
-    public class CreateUserDto
+    public class RegisterDto
     {
         public string Username { get; set; }
         public string Email { get; set; }

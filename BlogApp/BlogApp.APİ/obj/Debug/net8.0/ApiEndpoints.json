@@ -1,5 +1,37 @@
 [
   {
+    "ContainingType": "BlogApp.AP\u0130.Controllers.AuthsController",
+    "Method": "Login",
+    "RelativePath": "api/Auths/Login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "BlogApp.BL.DTOs.UserDTOs.LoginDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BlogApp.AP\u0130.Controllers.AuthsController",
+    "Method": "Register",
+    "RelativePath": "api/Auths/Register",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "BlogApp.BL.DTOs.UserDTOs.RegisterDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "BlogApp.AP\u0130.Controllers.CategoriesController",
     "Method": "Get",
     "RelativePath": "api/Categories",
@@ -50,12 +82,12 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "value",
+        "Name": "hash",
         "Type": "System.String",
         "IsRequired": false
       },
       {
-        "Name": "hash",
+        "Name": "pass",
         "Type": "System.String",
         "IsRequired": false
       }

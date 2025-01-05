@@ -9,62 +9,107 @@ namespace BlogApp.BL.Helpers
 {
     public static class HashHelper
     {
-        const int keySize = 64;
-        const int iterations = 350000;
-        static HashAlgorithmName hashAlgorithm = HashAlgorithmName.SHA512;
-
-        public static string HashPasword(string password )//out byte[] salt)
+        public static string HashPassword(string password)
+    {
+        byte[] salt;
+        byte[] buffer2;
+        if (password == null)
         {
-            byte[] salt = Encoding.UTF8.GetBytes("Hi");
-            
-
-            var hash = Rfc2898DeriveBytes.Pbkdf2(
-                Encoding.UTF8.GetBytes(password),
-                salt,
-                iterations,
-                hashAlgorithm,
-                keySize);
-
-            return Convert.ToHexString(hash);
+            throw new ArgumentNullException("password");
         }
-
-        public static bool VerifyPassword(string password, string hash)
+        using (Rfc2898DeriveBytes bytes = new Rfc2898DeriveBytes(password, 0x10, 0x3e8))
         {
-            byte[] salt = Encoding.UTF8.GetBytes("Hi");
-            var hashToCompare = Rfc2898DeriveBytes.Pbkdf2(password, salt, iterations, hashAlgorithm, keySize);
-
-            return CryptographicOperations.FixedTimeEquals(hashToCompare, Convert.FromHexString(hash));
+            salt = bytes.Salt;
+            buffer2 = bytes.GetBytes(0x20);
         }
-
-        //public static string SHA256Hash(string value)
-        //{
-        //    string salt = "Salam";
-        //    value = salt + value + salt.Reverse();
-
-        //    using (SHA256 hash = SHA256.Create())
-        //    {
-        //        byte[] bytes = hash.ComputeHash(Encoding.UTF8.GetBytes(value));
-        //        StringBuilder builder = new StringBuilder();
-
-        //        for (int i = 0; i < bytes.Length; i++)
-        //        {
-        //            builder.Append(bytes[i].ToString("x2"));
-        //        }
-
-        //    return builder.ToString();
-        //    }
-
-        //}
-        //public static byte[] SHA256HashByte(string value)
-        //{
-
-        //    using (SHA256 hash = SHA256.Create())
-        //    {
-        //        byte[] bytes = hash.ComputeHash(Encoding.UTF8.GetBytes(value));
-        //        return bytes;
-        //    }
-
-        //}
-
+        byte[] dst = new byte[0x31];
+        Buffer.BlockCopy(salt, 0, dst, 1, 0x10);
+        Buffer.BlockCopy(buffer2, 0, dst, 0x11, 0x20);
+        return Convert.ToBase64String(dst);
     }
+    public static bool VerifyHashedPassword(string hashedPassword, string password)
+    {
+        byte[] buffer4;
+        if (hashedPassword == null)
+        {
+            return false;
+        }
+        if (password == null)
+        {
+            throw new ArgumentNullException("password");
+        }
+        byte[] src = Convert.FromBase64String(hashedPassword);
+        if ((src.Length != 0x31) || (src[0] != 0))
+        {
+            return false;
+        }
+        byte[] dst = new byte[0x10];
+        Buffer.BlockCopy(src, 1, dst, 0, 0x10);
+        byte[] buffer3 = new byte[0x20];
+        Buffer.BlockCopy(src, 0x11, buffer3, 0, 0x20);
+        using (Rfc2898DeriveBytes bytes = new Rfc2898DeriveBytes(password, dst, 0x3e8))
+        {
+            buffer4 = bytes.GetBytes(0x20);
+        }
+        return buffer3.SequenceEqual(buffer4);
+    }
+    
+    //    const int keySize = 64;
+    //    const int iterations = 350000;
+    //    static HashAlgorithmName hashAlgorithm = HashAlgorithmName.SHA512;
+
+    //    public static string HashPasword(string password )//out byte[] salt)
+    //    {
+    //        byte[] salt = Encoding.UTF8.GetBytes("Hi");
+
+
+    //        var hash = Rfc2898DeriveBytes.Pbkdf2(
+    //            Encoding.UTF8.GetBytes(password),
+    //            salt,
+    //            iterations,
+    //            hashAlgorithm,
+    //            keySize);
+
+    //        return Convert.ToHexString(hash);
+    //    }
+
+    //    public static bool VerifyPassword(string password, string hash)
+    //    {
+    //        byte[] salt = Encoding.UTF8.GetBytes("Hi");
+    //        var hashToCompare = Rfc2898DeriveBytes.Pbkdf2(password, salt, iterations, hashAlgorithm, keySize);
+
+    //        return CryptographicOperations.FixedTimeEquals(hashToCompare, Convert.FromHexString(hash));
+    //    }
+
+    //public static string SHA256Hash(string value)
+    //{
+    //    string salt = "Salam";
+    //    value = salt + value + salt.Reverse();
+
+    //    using (SHA256 hash = SHA256.Create())
+    //    {
+    //        byte[] bytes = hash.ComputeHash(Encoding.UTF8.GetBytes(value));
+    //        StringBuilder builder = new StringBuilder();
+
+    //        for (int i = 0; i < bytes.Length; i++)
+    //        {
+    //            builder.Append(bytes[i].ToString("x2"));
+    //        }
+
+    //    return builder.ToString();
+    //    }
+
+    //}
+    //public static byte[] SHA256HashByte(string value)
+    //{
+
+    //    using (SHA256 hash = SHA256.Create())
+    //    {
+    //        byte[] bytes = hash.ComputeHash(Encoding.UTF8.GetBytes(value));
+    //        return bytes;
+    //    }
+
+    //}
+
+}
 }

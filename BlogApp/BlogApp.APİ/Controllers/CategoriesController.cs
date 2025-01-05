@@ -1,6 +1,7 @@
 ﻿using BlogApp.BL.DTOs.CategoryDtos;
 using BlogApp.BL.Helpers;
 using BlogApp.BL.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,13 +14,23 @@ namespace BlogApp.APİ.Controllers
         [HttpGet("[action]")]
         public async Task<IActionResult> Byte(string value)
         {
-            return Ok(HashHelper.HashPasword(value));
+            return Ok(HashHelper.HashPassword(value));
         }
         [HttpGet("[action]")]
-        public async Task<IActionResult> Verify(string value,string hash)
+        public async Task<IActionResult> Verify(string hash, string pass)
         {
-            return Ok(HashHelper.VerifyPassword(value,hash));
+            return Ok(HashHelper.VerifyHashedPassword(hash, pass));
         }
+        //[HttpGet("[action]")]
+        //public async Task<IActionResult> Byte(string value)
+        //{
+        //    return Ok(HashHelper.HashPasword(value));
+        //}
+        //[HttpGet("[action]")]
+        //public async Task<IActionResult> Verify(string value,string hash)
+        //{
+        //    return Ok(HashHelper.VerifyPassword(value,hash));
+        //}
         //[HttpGet("[action]")]
         //public async Task<IActionResult> Byte(string value)
         //{
@@ -31,6 +42,7 @@ namespace BlogApp.APİ.Controllers
         //    return Ok(HashHelper.SHA256Hash(value));
         //}
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> Get()
         {
             return Ok(await _service.GetAllAsync());

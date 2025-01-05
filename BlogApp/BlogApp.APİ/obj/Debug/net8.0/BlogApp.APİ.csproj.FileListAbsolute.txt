@@ -151,3 +151,5 @@ C:\Users\User\Desktop\Blog\BlogApp\BlogApp.APİ\bin\Debug\net8.0\AutoMapper.dll
 C:\Users\User\Desktop\Blog\BlogApp\BlogApp.APİ\bin\Debug\net8.0\FluentValidation.dll
 C:\Users\User\Desktop\Blog\BlogApp\BlogApp.APİ\bin\Debug\net8.0\FluentValidation.AspNetCore.dll
 C:\Users\User\Desktop\Blog\BlogApp\BlogApp.APİ\bin\Debug\net8.0\FluentValidation.DependencyInjectionExtensions.dll
+C:\Users\User\Desktop\Blog\BlogApp\BlogApp.APİ\obj\Debug\net8.0\BlogApp.APİ.sourcelink.json
+C:\Users\User\Desktop\Blog\BlogApp\BlogApp.APİ\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

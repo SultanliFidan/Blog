@@ -1,4 +1,6 @@
-﻿using BlogApp.BL.Services.Implements;
+﻿using BlogApp.BL.ExternalServices.Implements;
+using BlogApp.BL.ExternalServices.İnterfaces;
+using BlogApp.BL.Services.Implements;
 using BlogApp.BL.Services.Interfaces;
 using FluentValidation;
 using FluentValidation.AspNetCore;
@@ -15,7 +17,10 @@ namespace BlogApp.BL
     {
         public static IServiceCollection AddServices(this IServiceCollection services)
         {
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<IJwtTokenHandler, JwtTokenHandler>();
             return services;
         }
         public static IServiceCollection AddFluentValidation(this IServiceCollection services)
